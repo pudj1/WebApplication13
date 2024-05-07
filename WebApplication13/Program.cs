@@ -10,7 +10,9 @@ builder.Services.AddRazorPages();
 builder.Services.AddHostedService<EmailNotificationService>();
 builder.Services.AddHostedService<WebsiteChecker>();
 builder.Services.AddHostedService<WeatherService>();
+builder.Services.AddHostedService<NotificationService>();
 builder.Services.AddHttpClient();
+builder.Services.AddSignalR();
 builder.Services.AddMemoryCache();
 builder.Services.AddSingleton<ISchedulerFactory>(provider =>
 {
@@ -40,7 +42,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.MapHub<NotificationHub>("/notificationHub");
 app.UseAuthorization();
 
 app.MapRazorPages();
